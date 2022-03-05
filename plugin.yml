@@ -1,0 +1,6 @@
+name: CommandLibApi
+main: Voltage\Api\CommandLibApi
+version: 0.1
+api: 4.0.0
+authors:
+  - VirVoltaSurMC
