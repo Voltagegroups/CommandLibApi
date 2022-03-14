@@ -22,18 +22,7 @@ A very basic example can be seen here: [CommandVanilla](https://github.com/Volta
 
 Implement the command
 ```PHP
-class Exemple extends BaseCommandLib
-{
-    public function onLoad(string $name, string|\pocketmine\lang\Translatable $description, string|null|\pocketmine\lang\Translatable $usageMessage, array $aliases): void
-    {
-        $this->addParameter(CommandLibApi::create('player', EnumCommand::TARGET(), null, true));
-    }
-
-    public function onRun(CommandSender $sender, string $commandLabel, array $args): bool
-    {
-        return false;
-    }
-}
+IN DEV
 ```
 
 ## Contents

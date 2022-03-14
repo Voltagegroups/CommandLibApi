@@ -2,7 +2,6 @@
 
 namespace Voltage\Api\listener;
 
-
 use pocketmine\event\Listener;
 use pocketmine\event\server\DataPacketSendEvent;
 use pocketmine\network\mcpe\protocol\AvailableCommandsPacket;
@@ -39,10 +38,16 @@ class CommandLibListener implements Listener
             $player = $target->getPlayer();
             foreach($event->getPackets() as $packet){
                 if($packet instanceof AvailableCommandsPacket) {
-                    foreach($packet->commandData as $name => $commandData){
-                        $cmd = Server::getInstance()->getCommandMap()->getCommand($name);
-                        if($cmd instanceof BaseCommandLib && $cmd->hasOverloads()){
-                            $commandData->overloads = $cmd->getOverloads($player);
+                    foreach ($packet->commandData as $name => $commandData) {
+                        if (CommandLibApi::getManager()->existOverload($name)) {
+                            if (CommandLibApi::getManager()->getOverload($name)->hasOverloads()) {
+                                $commandData->overloads = CommandLibApi::getManager()->getOverload($name)->getOverloads($player);
+                            }
+                        } else {
+                            $cmd = Server::getInstance()->getCommandMap()->getCommand($name);
+                            if($cmd instanceof BaseCommandLib && $cmd->getOverload()->hasOverloads()) {
+                                $commandData->overloads = $cmd->getOverload()->getOverloads($player);
+                            }
                         }
                     }
                 }
